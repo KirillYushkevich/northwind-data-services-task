@@ -23,16 +23,16 @@
 | PK Table      | Cardinality PK Table | FK Table             | Cardinality FK Table | Relationship |
 | ------------- | -------------------- | -------------------- | -------------------- | ------------ |
 | shippers      | Zero-or-One          | orders               |  One-or-Many         | One-to-Many  |
-| employees     |                      | orders               |                      |              |
-| employees     |                      | employees            |                      |              |
+| employees     | Zero-or-One          | orders               |  One-or-Many         | One-to-Many  |
+| employees     | Zero-or-One          | employees            |  One-or-Many         | One-to-Many  |
 | employees     | -                    | territories          | -                    |              |
-| customers     |                      | orders               |                      |              |
+| customers     | Zero-or-One          | orders               |  One-or-Many         | One-to-Many  |
 | customers     | -                    | customerdemographics | -                    |              |
-| orders        |                      | orderdetails         |                      |              |
-| products      |                      | orderdetails         |                      |              |
-| suppliers     |                      | products             |                      |              |
-| categories    |                      | products             |                      |              |
-| region        |                      | territories          |                      |              |
+| orders        | One-or-Many          | orderdetails         |  One and Only One    | One-to-Many  |
+| products      | One and Only One     | orderdetails         |  One-or-Many         | One-to-Many  |
+| suppliers     | Zero-or-One          | products             |  One-or-Many         | One-to-Many  |
+| categories    | Zero-or-One          | products             |  One-or-Many         | One-to-Many  |
+| region        | One and Only One     | territories          |  One-or-Many         | One-to-Many  |
 
 3. Выясните тип отношений между таблицами базы данных. Заполните колонку Relationship в таблице выше. Используйте статью [Many-to-Many Relationship in the Northwind database](http://blog.codeontime.com/2012/04/many-to-many-relationship-in-northwind.html), чтобы найти связи типа "многие-ко-многим".
 
@@ -272,12 +272,12 @@ Console.ReadLine(); // breakpoint #2.3
 
 | Breakpoint | Thread ID   | Thread Managed ID | Thread Name |
 | ---------- | ----------- | ----------------- | ----------- |
-| #1.1       |             |                   |             |
-| #1.2       |             |                   |             |
-| #1.3       |             |                   |             |
-| #2.1       |             |                   |             |
-| #2.2       |             |                   |             |
-| #2.3       |             |                   |             |
+| #1.1       | 4656        |  2                | Main Thread |
+| #1.2       | 13472       |  4                | Work Thread |
+| #1.3       | 4656        |  2                | Main Thread |
+| #2.1       | 13924       |  2                | Main Thread |
+| #2.2       | 13024       |  10               | Work Thread |
+| #2.3       | 13024       |  10               | Work Thread |
 
 В чем разница между двумя подходами для брейкпоинтов #1.3 и #2.3?
 
