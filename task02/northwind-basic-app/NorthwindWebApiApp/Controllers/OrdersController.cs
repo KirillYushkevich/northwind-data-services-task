@@ -7,27 +7,32 @@ using NorthwindWebApiApp.Services;
 
 namespace NorthwindWebApiApp.Controllers
 {
-	[Route("api/[controller]")]
-	[ApiController]
-	public class OrdersController : ControllerBase
-	{
-		private readonly IOrderService _orderService;
+    [Route("api/[controller]")]
+    [ApiController]
+    public class OrdersController : ControllerBase
+    {
+        private readonly IOrderService _orderService;
 
-		public OrdersController(IOrderService orderService)
-		{
-			_orderService = orderService ?? throw new ArgumentNullException(nameof(orderService));
-		}
+        public OrdersController(IOrderService orderService)
+        {
+            _orderService = orderService ?? throw new ArgumentNullException(nameof(orderService));
+        }
 
-		[HttpGet]
-		public async Task<ActionResult<IEnumerable<BriefOrderDescription>>> GetOrders()
-		{
-			return Ok(await _orderService.GetOrdersAsync());
-		}
+        [HttpGet("/api/orders")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(500)]
+        public async Task<ActionResult<IEnumerable<BriefOrderDescription>>> GetOrders()
+        {
+            return Ok(await _orderService.GetOrdersAsync());
+        }
 
-		[HttpGet("{orderId}")]
-		public async Task<ActionResult<FullOrderDescription>> GetOrder(int orderId)
-		{
-			return Ok(await _orderService.GetOrderAsync(orderId));
-		}
-	}
+
+        [HttpGet("/api/orders/{orderId}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(500)]
+        public async Task<ActionResult<FullOrderDescription>> GetOrder(int orderId)
+        {
+            return Ok(await _orderService.GetOrderAsync(orderId));
+        }
+    }
 }
